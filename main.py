@@ -116,7 +116,7 @@ class Game2048:
     def check_game_over(self):
         game_over = True
         for i in range(4):
-            for j in range(5):
+            for j in range(4):
                 if self.matrix[i][j] == 0 or (j < 3 and self.matrix[i][j] == self.matrix[i][j+1]) or (i < 3 and self.matrix[i][j] == self.matrix[i+1][j]):
                     game_over = False
                     break
