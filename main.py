@@ -128,3 +128,47 @@ if __name__ == '__main__':
     root = tk.Tk()
     game = Game2048(root)
     root.mainloop()
+
+def merge(line):
+    """
+    Function to merge and slide a single row or column in 2048 game.
+    """
+    # Remove all zeros from the list
+    def remove_zeros(row):
+        return [value for value in row if value != 0]
+
+    # Merge the tiles that are adjacent and equal
+    def merge_tiles(row):
+        i = 0
+        while i < len(row) - 1:
+            if row[i] == row[i + 1]:
+                row[i] *= 2
+                row.pop(i + 1)
+            i += 1
+        return row
+
+    # Pad the list with zeros to maintain the original length
+    def add_zeros(row, length):
+        return row + [0] * (length - len(row))
+
+    # Remove zeros, merge tiles, and add zeros back to maintain length
+    merged_line = remove_zeros(line)
+    merged_line = merge_tiles(merged_line)
+    merged_line = add_zeros(merged_line, len(line))
+
+    return merged_line
+
+# Example usage:
+grid = [
+    [2, 0, 2, 4],
+    [0, 4, 0, 8],
+    [2, 2, 2, 2],
+    [4, 4, 4, 4]
+]
+
+# Merging rows (left to right)
+merged_grid = [merge(row) for row in grid]
+
+# Printing the merged grid
+for row in merged_grid:
+    print(row)
